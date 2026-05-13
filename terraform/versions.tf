@@ -5,8 +5,8 @@ terraform {
   # HashiCorp 공식 Azure provider
   required_providers {
     azurerm = {
-        source = "hashicorp/azurerm"
-        version = "~>4.0"
+      source  = "hashicorp/azurerm"
+      version = "~>4.0"
     }
   }
 }
