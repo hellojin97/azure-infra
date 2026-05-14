@@ -36,7 +36,7 @@ module "function" {
   source = "./modules/function"
 
   name                 = "func-dataplay-lab-kc"
-  storage_account_name = "stfuncapplabkc01"  # 본인 unique한 값으로
+  storage_account_name = "stfuncapplabkc01" # 본인 unique한 값으로
   resource_group_name  = module.rg_app.name
   location             = module.rg_app.location
 
