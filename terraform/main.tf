@@ -14,3 +14,19 @@ module "rg_app" {
     managed_by  = "Terraform"
   }
 }
+
+# Databricks Workspace
+module "databricks" {
+  source = "./modules/databricks"
+
+  name                = "dbw-dataplay-lab-kc"
+  resource_group_name = module.rg_app.name
+  location            = module.rg_app.location
+  sku                 = "premium"
+
+  tags = {
+    environment = "LAB"
+    managed_by  = "Terraform"
+    type        = "Premium"
+  }
+}
