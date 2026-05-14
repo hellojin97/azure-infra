@@ -12,7 +12,7 @@
 
 만들 파일 구조:
 
-```
+```text
 azure-infra/
 ├── .gitignore
 ├── docs/
@@ -176,6 +176,7 @@ terraform init \
 ```
 
 **왜 이렇게 분리하나?**
+
 - Storage Account 이름은 환경마다 다를 수 있음 (랜덤 suffix 포함)
 - 환경별로 다른 backend를 쓰고 싶을 때 같은 코드 재사용 가능
 - 코드에 인프라 식별자가 박혀있지 않으니 fork/공개 시 안전
@@ -318,7 +319,8 @@ terraform init \
 ```
 
 기대 결과:
-```
+
+```text
 Initializing the backend...
 Successfully configured the backend "azurerm"!
 ...
@@ -329,6 +331,7 @@ Terraform has been successfully initialized!
 ```
 
 이때 만들어지는 것:
+
 - `.terraform/` 디렉토리 (provider 바이너리) — gitignore됨
 - `.terraform.lock.hcl` (provider 버전 잠금) — **commit해야 함**
 
@@ -343,7 +346,8 @@ terraform validate
 ```
 
 기대 결과:
-```
+
+```text
 Success! The configuration is valid.
 ```
 
@@ -354,7 +358,8 @@ terraform plan
 ```
 
 기대 결과:
-```
+
+```text
 Acquiring state lock. This may take a few moments...
 data.azurerm_client_config.current: Reading...
 data.azurerm_subscription.current: Reading...
@@ -407,7 +412,7 @@ terraform output
 
 ### 에러: `403 AuthorizationPermissionMismatch` (terraform init 시)
 
-```
+```text
 Error: Failed to get existing workspaces: listing blobs:
 executing request: unexpected status 403 (...) with AuthorizationPermissionMismatch
 ```

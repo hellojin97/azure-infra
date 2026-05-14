@@ -23,7 +23,7 @@ Terraform은 state 파일을 어딘가 저장해야 하고, GitHub Actions는 Az
 
 OIDC 동작 흐름:
 
-```
+```text
 [GitHub Actions 실행]
        │  ① GitHub이 OIDC 토큰 발급
        │     토큰 sub 클레임 예: repo:hellojin97/azure-infra:pull_request

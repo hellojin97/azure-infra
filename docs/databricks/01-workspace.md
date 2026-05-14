@@ -3,6 +3,7 @@
 Azure Databricks Workspace를 Terraform 모듈로 만드는 가이드.
 
 이 문서를 읽기 전에 아래가 끝나있어야 합니다:
+
 - [01-azure-bootstrap.md](../01-azure-bootstrap.md) — Azure 인증, state backend
 - [02-terraform-skeleton.md](../02-terraform-skeleton.md) — Terraform 코드 골격
 - [03-github-actions.md](../03-github-actions.md) — CI/CD 파이프라인
@@ -44,7 +45,7 @@ az provider register --namespace Microsoft.Databricks
 
 ## 모듈 구조
 
-```
+```text
 terraform/
 ├── main.tf              ← 수정: databricks module 호출 추가
 ├── outputs.tf           ← 수정 (선택): workspace_url 노출
@@ -216,7 +217,7 @@ location            = module.rg_app.location
 
 이 두 줄이 **모듈 간 의존성**을 만듭니다. Terraform이 자동으로 그래프를 그려서:
 
-```
+```text
 module.rg_app  ─create→  module.databricks
 ```
 
@@ -310,13 +311,15 @@ URL 클릭 → Azure AD SSO로 로그인 → Databricks UI 진입.
 
 ### Classic vs Serverless 컴퓨트
 
-**Classic compute**
+#### Classic compute
+
 - 클러스터/SQL warehouse 만들면 Databricks가 **본인 구독의 managed RG에 VM 배포**
 - managed RG에 가서 보면 실제로 `Microsoft.Compute/virtualMachineScaleSets` 같은 게 보임
 - 비용 = Azure VM 요금 + Databricks DBU 요금
 - 시작 시간 = 분 단위
 
-**Serverless compute**
+#### Serverless compute
+
 - Serverless SQL warehouse, Serverless Jobs, Model Serving 같은 거
 - VM이 본인 구독에 안 뜸 — Databricks가 자기 인프라에서 관리
 - 비용 = DBU 요금만 (인프라 비용은 단가에 포함)

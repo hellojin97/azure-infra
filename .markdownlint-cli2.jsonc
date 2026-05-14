@@ -1,0 +1,17 @@
+// markdownlint-cli2 config — relaxed for technical docs
+{
+  "config": {
+    // Line length: technical docs have URLs, shell commands, table cells
+    // that frequently exceed 80 chars. Disable.
+    "MD013": false,
+
+    // Table pipe spacing: cosmetic, not worth enforcing.
+    "MD060": false,
+
+    // Duplicate headings allowed if they're under different parents
+    // (e.g., multiple sections each having "줄별 설명" as a subsection).
+    "MD024": { "siblings_only": true }
+  },
+  "globs": ["docs/**/*.md"],
+  "ignores": ["**/.terraform/**", "**/node_modules/**"]
+}

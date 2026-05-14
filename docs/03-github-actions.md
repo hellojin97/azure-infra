@@ -8,7 +8,7 @@
 
 만들 워크플로우 두 개:
 
-```
+```text
 .github/workflows/
 ├── terraform-plan.yml   ─── PR 열림/업데이트 시 → terraform plan
 └── terraform-apply.yml  ─── main 브랜치에 push 시 → terraform plan + apply
@@ -16,7 +16,7 @@
 
 ### 동작 흐름
 
-```
+```text
 [개발자] feature 브랜치에서 코드 수정 → push → PR 오픈
                                         │
                                         ▼
@@ -395,7 +395,7 @@ apply는 plan 본문보단 "**무엇이 어떤 commit으로 적용됐는가**" �
 
 ### 흐름
 
-```
+```text
 [현재] 워크플로우 파일들이 로컬에만 있음
    │
    ├─ ① 새 브랜치 만들기
@@ -482,7 +482,7 @@ gh run watch
 
 이번 PR은 terraform 코드가 안 바뀌었고 워크플로우만 추가됐으니 변경 사항 0:
 
-```
+```text
 Plan: 0 to add, 0 to change, 0 to destroy.
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
@@ -493,6 +493,7 @@ subscription_name = "..."
 ```
 
 **Apply가 0인데 의미 있나?** — 있음. 다음을 검증한 셈:
+
 - ✅ OIDC 인증 (SP)
 - ✅ State backend 잠금/읽기/쓰기
 - ✅ saved plan → apply 흐름
@@ -521,12 +522,14 @@ terraform state pull | jq '.serial, .lineage'
 1. GitHub repo → **Settings → Environments → New environment** → 이름 예: `azure`
 2. 그 environment에 **Required reviewers** 룰 추가 (본인 또는 팀원)
 3. apply 워크플로우 job에 한 줄 추가:
+
    ```yaml
    jobs:
        apply:
            environment: azure   # ← 이 한 줄
            ...
    ```
+
 4. (보안 강화) 1단계의 federated credential도 environment subject로 더 좁히기:
    - subject: `repo:OWNER/REPO:environment:azure`
    - 이러면 environment를 거치지 않은 워크플로우에서는 OIDC 인증 자체가 거부됨
@@ -540,10 +543,12 @@ terraform state pull | jq '.serial, .lineage'
 ### `Error: failed to acquire OIDC token`
 
 **원인**:
+
 - `permissions: id-token: write` 빠짐
 - federated credential subject가 현재 컨텍스트와 안 맞음
 
 **해결**:
+
 ```bash
 # subject가 정확히 들어갔는지
 az ad app federated-credential list --id $CLIENT_ID -o table
@@ -563,6 +568,7 @@ az ad app federated-credential list --id $CLIENT_ID -o table
 **원인**: `paths` 필터에 안 걸림.
 
 **해결**:
+
 - plan: `paths: ["terraform/**", ".github/workflows/terraform-plan.yml"]`
 - apply: `paths: ["terraform/**", ".github/workflows/terraform-apply.yml"]`
 
@@ -585,6 +591,7 @@ ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 ### VSCode에서 자동완성이 안 됨
 
 **해결**: GitHub Actions 익스텐션 설치
+
 - 명령 팔레트(`Cmd+Shift+P`) → `Extensions: Install Extensions` → "GitHub Actions" 검색 → `github.vscode-github-actions` 설치
 - 설치 후 `uses:`, `runs-on:` 등 자동완성 + 인라인 스키마 검증
 
