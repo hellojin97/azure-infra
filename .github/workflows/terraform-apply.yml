@@ -27,6 +27,7 @@ jobs:
             ARM_CLIENT_ID:       ${{ vars.AZURE_CLIENT_ID }}
             ARM_TENANT_ID:       ${{ vars.AZURE_TENANT_ID }}
             ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+            TF_VAR_discord_webhook_url: ${{ secrets.TF_VAR_DISCORD_WEBHOOK_URL }}
         
         steps:
             - name: Checkout
