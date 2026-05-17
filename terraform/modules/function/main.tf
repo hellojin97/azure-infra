@@ -43,6 +43,13 @@ resource "azurerm_linux_function_app" "this" {
 
   https_only = true
 
+  app_settings = merge(
+    {
+      AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
+    },
+    var.app_settings,
+  )
+
   site_config {
     application_stack {
       python_version = var.python_version

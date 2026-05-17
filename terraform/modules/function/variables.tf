@@ -36,3 +36,10 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "app_settings" {
+  description = "Function App에 추가로 주입할 App Settings. EnableWorkerIndexing은 모듈이 강제로 머지하므로 caller가 명시할 필요가 없다."
+  type        = map(string)
+  default     = {}
+  sensitive   = true
+}
