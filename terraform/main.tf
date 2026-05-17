@@ -31,7 +31,7 @@ module "databricks" {
   }
 }
 
-# Azure Functino
+# Azure Functions
 module "function" {
   source = "./modules/function"
 
@@ -39,6 +39,10 @@ module "function" {
   storage_account_name = "stfuncapplabkc01" # 본인 unique한 값으로
   resource_group_name  = module.rg_app.name
   location             = module.rg_app.location
+
+  app_settings = {
+    DISCORD_WEBHOOK_URL = var.discord_webhook_url
+  }
 
   tags = {
     environment = "LAB"

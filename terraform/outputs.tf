@@ -22,3 +22,13 @@ output "resource_group_name" {
   description = "Name of the application resource group"
   value       = module.rg_app.name
 }
+
+output "function_app_id" {
+  description = "Function App resource ID - OIDC SP의 role assignment scope에 사용"
+  value       = module.function.id
+}
+
+output "function_app_name" {
+  description = "Function App name - Github Actions의 AZURE_FUNCTIONAPP_NAME 변수"
+  value       = module.function.name
+}
