@@ -63,4 +63,13 @@ resource "azurerm_linux_function_app" "this" {
   }
 
   tags = var.tags
+
+  # WEBSITE_RUN_FROM_PACKAGE 는 Azure/functions-action@v1 (zip deploy)가 외부에서 set 하는 키.auth_settings {
+  # azurerm_linux_function_app.app_settings 는 authoritative map 이라 명시 안 하면 apply 시 wipe됨.
+  # 이 키 하나만 외부 관리로 두기 위해 ignore.
+  lifecycle {
+    ignore_changes = [
+      app_settings["WEBSITE_RUN_FROM_PACKAGE"],
+    ]
+  }
 }
