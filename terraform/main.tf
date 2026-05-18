@@ -41,7 +41,7 @@ module "function" {
   location             = module.rg_app.location
 
   app_settings = {
-    DISCORD_WEBHOOK_URL = var.discord_webhook_url
+    DISCORD_WEBHOOK_URL = "@Microsoft.KeyVault(VaultName=${module.key_vault.name};SecretName=discord-webhook-url)"
   }
 
   tags = {
